@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.samplemaven.jagacy</groupId>
+	<artifactId>JagacyCucumberSample</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>JagacyCucumberSample</name>
+	<description>Demo project for Jagacy Cucumber</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<junit.version>4.12</junit.version>
+		<cucumber.version>1.2.5</cucumber.version>
+		<commons.lang3.version>3.4</commons.lang3.version>
+		<maven.compiler.version>3.7.0</maven.compiler.version>
+		<jagacy.version>4.2.3</jagacy.version>
+		<log4j.version>2.8</log4j.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Cucumber Framework -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java8</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Cucumber Framework -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Cucumber Dependency Injection -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency>
+
+		<!-- For Assertions -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- For getting the text in the terminal screen to be used in converting 
+			to image -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.lang3.version}</version>
+		</dependency>
+
+		<!-- For conneting adn interacting with the terminal screen -->
+		<dependency>
+			<groupId>jagacy3270</groupId>
+			<artifactId>jagacy3270</artifactId>
+			<version>${jagacy.version}</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/test/resources/lib/jagacy3270.jar</systemPath>
+		</dependency>
+
+		<!-- Logger -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- For reading .properties files -->
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+		<!-- Cucumber Extent Reports -->
+		<dependency>
+			<groupId>com.vimalselvam</groupId>
+			<artifactId>cucumber-extentsreport</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<compilerArgument>-Werror</compilerArgument>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
