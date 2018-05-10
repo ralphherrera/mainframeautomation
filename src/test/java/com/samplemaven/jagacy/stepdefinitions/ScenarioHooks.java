@@ -33,12 +33,6 @@ public class ScenarioHooks implements En {
 			}
 		});
 
-		// print starting XX before every scenario
-		Before((Scenario scenario) -> log.info("Starting scenario: " + scenario.getName()));
-
-		// print ending XX after every scenario
-		After((Scenario scenario) -> log.info("Ending scenario: " + scenario.getName()));
-
 		After(() -> {
 			try {
 				log.info("Ending scenario: {}", scenario.getName());
