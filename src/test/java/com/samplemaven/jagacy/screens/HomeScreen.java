@@ -6,11 +6,14 @@ import org.apache.logging.log4j.Logger;
 import com.samplemaven.jagacy.fields.LabelField;
 import com.samplemaven.jagacy.utils.SessionDriver;
 
+import cucumber.api.Scenario;
+
 public class HomeScreen {
 	
 	private static final Logger log = LogManager.getLogger(HomeScreen.class);
 
 	private SessionDriver sessionDriver;
+	private Scenario scenario;
 	
 	/* Screen Elements */
 	private LabelField lbl_homeScreen = new LabelField(17, 6, "TEXAS A & M UNIVERSITY");
@@ -27,11 +30,13 @@ public class HomeScreen {
 		try {
 			if (sessionDriver.waitForTextToAppear(lbl_homeScreen, lbl_homeScreen.getLabelText())) {
 				log.info("Home screen is displayed");
+				sessionDriver.getScreenshot(scenario);
 				return true;
 			}
 		} catch (Exception e) {
 			log.error("Something went wrong {}", e);
 		}
+		
 		return false;
 	}
 
@@ -42,7 +47,8 @@ public class HomeScreen {
 	/**
 	 * @param sessionDriver the sessionDriver to set
 	 */
-	public void setSessionDriver(SessionDriver sessionDriver) {
+	public void setSessionDriver(SessionDriver sessionDriver, Scenario scenario) {
 		this.sessionDriver = sessionDriver;
+		this.scenario = scenario;
 	}
 }

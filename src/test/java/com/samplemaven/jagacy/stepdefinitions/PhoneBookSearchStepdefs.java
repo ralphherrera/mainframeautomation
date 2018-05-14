@@ -17,13 +17,13 @@ public class PhoneBookSearchStepdefs implements En {
 			PhoneBookSearchScreen phoneBookSearchScreen) {
 
 		Given("^I am in the homescreen$", () -> {
-			homeScreen.setSessionDriver(hooks.getSessionDriver());
+			homeScreen.setSessionDriver(hooks.getSessionDriver(), hooks.getScenario());
 			Assert.assertThat("Verify if Homescreen is displayed", homeScreen.isHomeScreenDisplayed(),
 					is(equalTo(true)));
 		});
 
 		When("^I access phonebook screen$", () -> {
-			phoneBookMenuScreen.setSessionDriver(hooks.getSessionDriver());
+			phoneBookMenuScreen.setSessionDriver(hooks.getSessionDriver(), hooks.getScenario());
 			
 			homeScreen.inputKeys("PHONBOOK");
 			
@@ -33,7 +33,7 @@ public class PhoneBookSearchStepdefs implements En {
 		});
 
 		And("^I search for faculty member using first or middle name$", () -> {
-			phoneBookSearchScreen.setSessionDriver(hooks.getSessionDriver());
+			phoneBookSearchScreen.setSessionDriver(hooks.getSessionDriver(), hooks.getScenario());
 			Assert.assertThat("Verify if PhoneBookSearchScreen is displayed",
 					phoneBookSearchScreen.isPhoneBookSearchScreen(), is(equalTo(true)));
 			phoneBookSearchScreen.inputKeys("RALPH");

@@ -33,21 +33,32 @@ public class ScenarioHooks implements En {
 			}
 		});
 
-		After(() -> {
+		After(0, () -> {
 			try {
 				log.info("Ending scenario: {}", scenario.getName());
+				if (scenario.isFailed()) {
+					sessionDriver.getScreenshot(scenario);
+				}
 				sessionDriver.close();
 				sessionDriver = null;
 			} catch (Exception e) {
 				log.error("Cannot close session instance: {}", e);
 			}
 		});
+		
 	}
-
+	
 	/**
 	 * @return the sessionDriver
 	 */
 	public SessionDriver getSessionDriver() {
 		return sessionDriver;
+	}
+	
+	/**
+	 * @return the scenario
+	 */
+	public Scenario getScenario() {
+		return scenario;
 	}
 }

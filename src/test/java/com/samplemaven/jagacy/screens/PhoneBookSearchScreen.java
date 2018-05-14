@@ -10,11 +10,14 @@ import com.jagacy.util.JagacyException;
 import com.samplemaven.jagacy.fields.LabelField;
 import com.samplemaven.jagacy.utils.SessionDriver;
 
+import cucumber.api.Scenario;
+
 public class PhoneBookSearchScreen {
 
 	private static final Logger log = LogManager.getLogger(PhoneBookSearchScreen.class);
 
 	private SessionDriver sessionDriver;
+	private Scenario scenario;
 	
 	/* Screen Elements */
 	private LabelField lbl_phoneBookSearchScreenName = new LabelField(0, 18,
@@ -34,6 +37,7 @@ public class PhoneBookSearchScreen {
 		try {
 			if (sessionDriver.waitForTextToAppear(lbl_phoneBookSearchScreenName, lbl_phoneBookSearchScreenName.getLabelText())) {
 				log.info("PhoneBookSearchScreen is displayed");
+				sessionDriver.getScreenshot(scenario);
 				return true;
 			}
 		} catch (Exception e) {
@@ -55,6 +59,7 @@ public class PhoneBookSearchScreen {
 			}
 			for (String result : results) {
 				if (result.toLowerCase().contains(query.toLowerCase())) {
+					sessionDriver.getScreenshot(scenario);
 					return true;
 				}
 			}
@@ -70,7 +75,8 @@ public class PhoneBookSearchScreen {
 	/**
 	 * @param sessionDriver the sessionDriver to set
 	 */
-	public void setSessionDriver(SessionDriver sessionDriver) {
+	public void setSessionDriver(SessionDriver sessionDriver, Scenario scenario) {
 		this.sessionDriver = sessionDriver;
+		this.scenario = scenario;
 	}
 }

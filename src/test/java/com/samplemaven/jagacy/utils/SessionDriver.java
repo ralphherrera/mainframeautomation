@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.cucumber.listener.Reporter;
 import com.jagacy.Key;
 import com.jagacy.Session3270;
 import com.jagacy.util.JagacyException;
@@ -135,10 +136,14 @@ public class SessionDriver extends Session3270 {
 		
 		String screenShotName = new StringBuffer().append(scenario.getName().replace(" ", "_")).append("_")
 				.append(new SimpleDateFormat("MM_d_yyyy_HH_mm_ss").format(new Date())).toString();
-				
-		try (FileOutputStream fileOutputStream = new FileOutputStream(
-				new File("target/screenshots" + screenShotName + ".png"))) {
+		
+		String screenShotPath = new StringBuffer().append(System.getProperty("user.dir")).append("\\target\\cucumber-reports\\screenshots\\").append(screenShotName)
+				.append(".png").toString();
+		
+		try (FileOutputStream fileOutputStream = new FileOutputStream(new File(screenShotPath))) {
+		
 			out.writeTo(fileOutputStream);
+			Reporter.addScreenCaptureFromPath(screenShotPath);
 		} catch (Exception e) {
 			log.error("Something went wrong {}", e);
 		}
