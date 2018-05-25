@@ -44,7 +44,7 @@ public class PhoneBookSearchStepdefs implements En {
 					phoneBookSearchScreen.areFacultyMembersInfoDisplayed("RALPH"), is(equalTo(true))));
 		
 		Then("^I should see no results$", () -> 
-		Assert.assertThat("Verify if results displayed is relevant to the search query", 
+		Assert.assertThat("Verify if no results is displayed", 
 				phoneBookSearchScreen.areFacultyMembersInfoDisplayed("RALPH"), is(equalTo(false))));
 
 	}
