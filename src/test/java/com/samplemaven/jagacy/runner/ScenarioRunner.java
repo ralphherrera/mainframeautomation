@@ -16,7 +16,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		// tags = {"@ComponentA, @BigFunctionalArea, @FunctionPoint1, @sample"}, //run
 		// tagged features at all levels
-		tags = { "@phonebooksearch" }, // run a single scenario while developing or troubleshooting
+		tags = { "@sample" }, // run a single scenario while developing or troubleshooting
 		features = { "src/test/resources/features" }, // feature file path
 		glue = { "com.samplemaven.jagacy.stepdefinitions" }, // step definition package
 		plugin = { "pretty",

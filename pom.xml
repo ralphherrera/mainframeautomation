@@ -69,6 +69,24 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/test/resources/lib/jagacy3270.jar</systemPath>
 		</dependency>
+		
+		<!-- AS400 For conneting adn interacting with the terminal screen 
+		<dependency>
+			<groupId>tn5250j</groupId>
+			<artifactId>tn5250j</artifactId>
+			<version>${tn5250j.version}</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/test/resources/lib/tn5250j.jar</systemPath>
+		</dependency> -->
+		
+		<!-- AS400 For conneting adn interacting with the terminal screen 
+		<dependency>
+			<groupId>jython</groupId>
+			<artifactId>jython</artifactId>
+			<version>${jython.version}</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/test/resources/lib/jython.jar</systemPath>
+		</dependency> -->
 
 		<!-- Logger -->
 		<dependency>
