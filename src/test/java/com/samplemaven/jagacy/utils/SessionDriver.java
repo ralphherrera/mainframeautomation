@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -40,13 +41,32 @@ public class SessionDriver extends Session3270 {
 	}
 	
 	/**
+	 * 
+	 * @param key
+	 * @return 
+	 */
+	public Key pressKey(String key) {
+		Map<String, Key> keyBoardMapping = new HashMap<>();
+		try {
+			keyBoardMapping.put("Enter", writeKey(Key.ENTER));
+			keyBoardMapping.put("F24", writeKey(Key.PF24));
+			
+			return keyBoardMapping.get(key);
+		} catch (Exception e) {
+			log.error("Cannot find indicated key {} {}", key, e);
+		}
+		return keyBoardMapping.get(key);
+		
+	}
+
+	/**
 	 * @param labelField
 	 * @param text
 	 * @return True if text is displayed, False if text is not displayed
 	 */
 	public boolean waitForTextToAppear(LabelField labelField, String text) {
 		try {
-			log.info("Getting value at row [{}] and column [{}]", labelField.getRow(), labelField.getColumn());
+			log.debug("Getting value at row [{}] and column [{}]", labelField.getRow(), labelField.getColumn());
 			if (waitForPosition(labelField.getRow(), labelField.getColumn(), labelField.getLabelText(), DEFAULT_TIMEOUT)) {
 				log.info("Found text [{}]", getTextFromScreen(labelField, text));
 				return true;
@@ -75,11 +95,9 @@ public class SessionDriver extends Session3270 {
 	 * @param text
 	 * @param sc
 	 */
-	public void sendInputTextToScreen(LabelField labelField, String text) {
+	public void inputTextToScreen(LabelField labelField, String text) {
 		try {
 			writePosition(labelField.getRow(), labelField.getColumn(), text);
-			writeKey(Key.ENTER);
-			waitForChange(DEFAULT_TIMEOUT);
 		} catch (JagacyException je) {
 			log.error("Unable to get the text. {}", je);
 		} catch (Exception e) {
@@ -148,4 +166,7 @@ public class SessionDriver extends Session3270 {
 			log.error("Something went wrong {}", e);
 		}
 	}
+	
+	
+	
 }

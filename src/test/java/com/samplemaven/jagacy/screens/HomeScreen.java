@@ -4,27 +4,57 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.samplemaven.jagacy.fields.LabelField;
-import com.samplemaven.jagacy.utils.SessionDriver;
 
-import cucumber.api.Scenario;
+public class HomeScreen extends BaseScreen {
 
-public class HomeScreen {
-	
 	private static final Logger log = LogManager.getLogger(HomeScreen.class);
 
-	private SessionDriver sessionDriver;
-	private Scenario scenario;
-	
 	/* Screen Elements */
-	private LabelField lbl_homeScreen = new LabelField(17, 6, "TEXAS A & M UNIVERSITY");
+	private LabelField lbl_homeScreen = new LabelField(0, 19, "KAPITI SYSTEM SIGN-ON");
 
-	private LabelField txt_homeScreen = new LabelField(23, 1);
-	
+	private LabelField txt_unitMnemonic = new LabelField(5, 32);
+
 	public HomeScreen() {
 		// Default constructor
 	}
-	
+
 	/* Page Methods */
+	
+	/**
+	 * @param element
+	 * @return LabelField element which depends on the @param element String
+	 */
+	public LabelField returnLabelElement (String element) {
+		LabelField labelField;
+		
+		switch (element) {
+		case "Header Name":
+			labelField = lbl_homeScreen;
+			break;
+		case "Unit Mnemonic":
+			labelField = txt_unitMnemonic;
+			break;
+		default:
+			labelField = null;
+		}
+		return labelField;
+	}
+	
+	
+	/**
+	 * @param labelElement
+	 * @param textInput - Sends test data value to specified label element
+	 */
+	public void inputText(String labelElement, String textInput) {
+		sessionDriver.inputTextToScreen(returnLabelElement(labelElement), textInput);
+	}
+	
+	/***
+	 * @param key - Equivalent Keyboard mapping
+	 */
+	public void pressKey(String key) {
+		sessionDriver.pressKey(key);
+	}
 
 	public boolean isHomeScreenDisplayed() {
 		try {
@@ -36,19 +66,8 @@ public class HomeScreen {
 		} catch (Exception e) {
 			log.error("Something went wrong {}", e);
 		}
-		
+
 		return false;
 	}
 
-	public void inputKeys(String text) {
-		sessionDriver.sendInputTextToScreen(txt_homeScreen, text);
-	}
-
-	/**
-	 * @param sessionDriver the sessionDriver to set
-	 */
-	public void setSessionDriver(SessionDriver sessionDriver, Scenario scenario) {
-		this.sessionDriver = sessionDriver;
-		this.scenario = scenario;
-	}
 }

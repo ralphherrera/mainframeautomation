@@ -1,46 +1,68 @@
 package com.samplemaven.jagacy.screens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.samplemaven.jagacy.fields.LabelField;
-import com.samplemaven.jagacy.utils.SessionDriver;
 
-import cucumber.api.Scenario;
-
-public class MainMenuScreen {
+public class MainMenuScreen extends BaseScreen {
 	private static final Logger log = LogManager.getLogger(MainMenuScreen.class);
 
-	private SessionDriver sessionDriver;
-	private Scenario scenario;
-	
 	/* Screen Elements */
-	
-	private LabelField lbl_mainMenuScreen = new LabelField(0, 32, "IBM i Main Menu");
-	
-	private LabelField txt_menuCommand = new LabelField(19, 6);
-	
+	private LabelField lbl_mainMenuScreen = new LabelField(0, 32, "E Q U A T I O N");
+
+	private LabelField txt_menuSelection = new LabelField(20, 16);
+
 	public MainMenuScreen() {
 		// Default constructor
 	}
-	
+
 	/* Page Methods */
+	/**
+	 * @param element
+	 * @return LabelField element which depends on the @param element String
+	 */
+	public LabelField returnLabelElement (String element) {
+		LabelField labelField;
+		
+		switch (element) {
+		case "Header Name":
+			labelField = lbl_mainMenuScreen;
+			break;
+		case "Menu Selection":
+			labelField = txt_menuSelection;
+			break;
+
+		default:
+			labelField = null;
+		}
+		return labelField;
+	}
 	
 	/**
-	 * @param sessionDriver the sessionDriver to set
+	 * @param labelElement
+	 * @param textInput - Sends test data value to specified label element
 	 */
-	public void setSessionDriver(SessionDriver sessionDriver, Scenario scenario) {
-		this.sessionDriver = sessionDriver;
-		this.scenario = scenario;
+	public void inputText(String labelElement, String textInput) {
+		sessionDriver.inputTextToScreen(returnLabelElement(labelElement), textInput);
+	}
+	
+	/***
+	 * @param key
+	 */
+	public void pressKey(String key) {
+		try {
+			sessionDriver.pressKey(key);
+			sessionDriver.waitForChange(DEFAULT_TIMEOUT);
+		} catch (Exception e) {
+			log.error("Something went wrong {}", e);
+		}
 	}
 	
 	public boolean isMainMenuScreenDisplayed() {
 		try {
 			if (sessionDriver.waitForTextToAppear(lbl_mainMenuScreen, lbl_mainMenuScreen.getLabelText())) {
-				log.info("MainMenuScreen is displayed");
+				log.info("Main Menu Screen is displayed");
 				sessionDriver.getScreenshot(scenario);
 				return true;
 			}
@@ -49,26 +71,5 @@ public class MainMenuScreen {
 		}
 		return false;
 	}
-	
-	public boolean areMainMenuOptionsDisplayed() {
-		try {
-			List<String> menuOptions = new ArrayList<>();
-			for (int i = 4; i <= 16; i++) {
-				log.debug("Options{}", sessionDriver.readPosition(i, 5, 37));
-				menuOptions.add(sessionDriver.readPosition(i, 2, 75));
-			}
-			
-			if (!menuOptions.isEmpty()) {
-				sessionDriver.getScreenshot(scenario);
-				return true;
-			}
-		} catch (Exception e) {
-			log.error("Something went wrong {}", e);
-		}
-		return false;
-	}
-	
-	public void logout() {
-		sessionDriver.sendInputTextToScreen(txt_menuCommand, "90");
-	}
+
 }
